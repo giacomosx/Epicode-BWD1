@@ -7,35 +7,37 @@ const confirmBtn = document.getElementById('confirm');
 let timing = 90;
 timer.innerHTML = timing;
 
+let allAnswers = [];
+
 let questionNumber = 0;
 let totalPoints = 0;
-
-console.log(questions[questionNumber].correct_answer);
 
 getQuestion();
 startTimer();
 
 function getQuestion() {
-    let allAnswers = [];
     allAnswers.push(questions[questionNumber].correct_answer);
     questions[questionNumber].incorrect_answers.forEach(answer => {
       allAnswers.push(answer);
     });
-
     allAnswers.sort();
-    
-    question.innerHTML = questions[questionNumber].question;
+    question.innerHTML = questions[questionNumber].question; 
+    getAnswers(allAnswers);
+}
 
-    allAnswers.forEach(answer => {
-      const button = document.createElement('button'); 
-      button.classList.add('answersBtn');
-      button.innerHTML = answer;
-      answersContainer.append(button);
-    })
+function getAnswers(array) {
+  const answersContainer = document.createElement('div');
+  answersContainer.id = 'answersContainer';
+  container.append(answersContainer);
+  array.forEach(answer => {
+    const button = document.createElement('button'); 
+    button.classList.add('answersBtn');
+    button.innerHTML = answer;
+    answersContainer.append(button);
+  })
 }
 
 function startTimer() {
-
   let countDown = setInterval(function() {
     timing--;
     timer.innerHTML = timing;
@@ -43,13 +45,13 @@ function startTimer() {
       clearInterval(countDown);
     }
   }, 1000)
-  
 }
 
 confirmBtn.addEventListener('click', function() {
+  const answersContainer = document.getElementById('answersContainer');
+  answersContainer.remove();
   questionNumber += 1;
-  getQuestion();
   timing = 90;
-  clearInterval(countDown);
-  startTimer();
+  allAnswers = [];
+  getQuestion();
 })
