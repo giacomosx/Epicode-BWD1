@@ -51,7 +51,7 @@ confirmBtn.addEventListener('click', function() {
   const answersContainer = document.getElementById('answersContainer');
   answersContainer.remove();
   questionNumber += 1;
-  timing = 90;
+  timing = 91;
   allAnswers = [];
   getQuestion();
 })
