@@ -30,6 +30,8 @@ p {
     padding-left: 9%;
     top: 25%;
     color: white;
+    display: flex;
+    text-align: start;
 }
 
 .welcome{
@@ -49,4 +51,10 @@ p {
 .instructions2{
     font-size: 16px;
 }
+.check{
+    margin-top: 80px;
+}
+
+
+
 
