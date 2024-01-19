@@ -1,3 +1,59 @@
+function startTimer() {
+  setInterval(function () {
+    timing--;
+    timer.innerHTML = timing;
+    if (timing === 0) {
+      checkQuestion(currentUserAnswer, userResults); // insert a function that checks if the value entered by the user is correct
+      nextQuestion();
+    }
+  }, 1000)
+}
+
+
+function startTest() {
+  question.innerHTML = questions[questionNumber].question;
+  getOptionsBtns(allAnswers);
+  takeBtnValue();// function that takes the value of the pressed button
+}
+
+
+function getOptionsBtns(array) {
+  array.push(questions[questionNumber].correct_answer);
+  questions[questionNumber].incorrect_answers.forEach(answer => {
+    array.push(answer);
+  });
+
+  array.sort();
+
+  const answersContainer = document.createElement('div');
+  answersContainer.id = 'answersContainer';
+  container.append(answersContainer);
+
+  array.forEach(answer => {
+    const button = document.createElement('button');
+    button.classList.add('answersBtn');
+    button.innerHTML = answer;
+    answersContainer.append(button);
+  })
+}
+
+
+function nextQuestion() {
+  const answersContainer = document.getElementById('answersContainer');
+  answersContainer.remove();
+
+  questionNumber += 1;
+  timing = 91;
+  allAnswers = [];
+
+  if (questionNumber < questions.length) {
+    startTest();
+  } else {
+    showResults(); // function that shows final results
+  }
+}
+
+
 function takeBtnValue() {
     const answersBtn = document.querySelectorAll('.answersBtn');
   

@@ -15,6 +15,10 @@ body{
     font-family: 'Inter', sans-serif;
 }
 
+button {
+    cursor: pointer;
+}
+
 header {
     height: 150px;
     display: flex;
@@ -43,6 +47,7 @@ h1 {
     font-family: 'Outfit', sans-serif;
 }
 
+
 h2 {
     color: #D20094;
     font-size: 25px;
@@ -60,17 +65,24 @@ strong {
     top: 10%;
 }
 
-.timer-container{
-    position: absolute;
-    padding-left: 80%;
-    top: 10%;
-    height: 200px;
-    width: 200px;
+.timerSection {
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.timer-container {
+    height: 80px;
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 10px solid #00FFFF;
+    border-radius: 50px;
 }
 
 .text-container{
     font-size: 60px;
-    top: 25%;
     color: white;
     display: flex;
     flex-direction: column;
@@ -108,7 +120,7 @@ strong {
 }
 
 #timer{
-    font-size: 16px;
+    font-size: 32px;
 }
 
 #container{
