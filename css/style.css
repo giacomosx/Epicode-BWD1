@@ -1,18 +1,33 @@
 @import url("https://necolas.github.io/normalize.css/latest/normalize.css");
 /* normalizing css */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
 
 body{
     margin: 0;
-    position: relative;
     height: 100vh;
     width: 100%;
     background-image: url('/assets/bg.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    display: flex;
     color: #fff;
+    font-family: 'Inter', sans-serif;
+}
+
+header {
+    height: 150px;
+    display: flex;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
 }
 
 p, h1, h2 {
@@ -25,12 +40,14 @@ h1 {
     line-height: 40px;
     font-weight: 300;
     margin-bottom: 35px;
+    font-family: 'Outfit', sans-serif;
 }
 
 h2 {
     color: #D20094;
     font-size: 25px;
     margin-bottom: 10px;
+    font-family: 'Outfit', sans-serif;
 }
 
 strong {
@@ -38,10 +55,8 @@ strong {
 }
 
 .epicode_logo{
-    position: absolute;
-    width: 15%;
+    width: 215px;
     height: auto;
-    padding-left: 9%;
     top: 10%;
 }
 
@@ -54,10 +69,7 @@ strong {
 }
 
 .text-container{
-    position: absolute;
-    font-family: 'Outfit', sans-serif;
     font-size: 60px;
-    padding-left: 9%;
     top: 25%;
     color: white;
     display: flex;
@@ -72,6 +84,10 @@ strong {
 .instructions{
     font-size: 16px;
     font-weight: 300;
+}
+
+.instructions p {
+    width: 480px;
 }
 
 .instructions ul {
@@ -96,7 +112,6 @@ strong {
 }
 
 #container{
-    position: absolute;
     background-color: transparent;
     width: 200px;
     height: 50px;
@@ -105,9 +120,21 @@ strong {
     font-size: 16px;
     font-weight: bolder;
     color: white;
-    top: 50%;
     align-items: center;
 }
+
+
+#proceedBtn {
+    margin-left: 200px;
+    font-size: 18px;
+    color: black;
+    background-color: #00FFFF;
+    text-decoration: none;
+    padding: 12px;
+    box-shadow: 0px 0px 40px#0ff;
+    font-weight: bold;
+}
+
 
 #confirm{
     position: absolute;
@@ -123,6 +150,3 @@ strong {
     left: 70%;
     box-shadow: 1px 2px 0px 0px white inset;
 }
-
-
-

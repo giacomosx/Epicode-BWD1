@@ -26,7 +26,7 @@ window.onload = function () {
 function startTest() {
   question.innerHTML = questions[questionNumber].question;
   getOptionsBtns(allAnswers);
-  // insert a function that takes the value of the pressed button
+  takeBtnValue();// insert a function that takes the value of the pressed button
 }
 
 
@@ -62,7 +62,7 @@ function nextQuestion() {
   if (questionNumber < questions.length) {
     startTest();
   } else {
-    // insert a function that shows final results
+    showResults(); // insert a function that shows final results
   }
 }
 
@@ -72,7 +72,7 @@ function startTimer() {
     timing--;
     timer.innerHTML = timing;
     if (timing === 0) {
-      // insert a function that checks if the value entered by the user is correct
+      checkQuestion(currentUserAnswer, userResults); // insert a function that checks if the value entered by the user is correct
       nextQuestion();
     }
   }, 1000)
@@ -80,6 +80,6 @@ function startTimer() {
 
 
 confirmBtn.addEventListener('click', function () {
-  // insert a function that checks if the value entered by the user is correct
+  checkQuestion(currentUserAnswer, userResults); // insert a function that checks if the value entered by the user is correct
   nextQuestion();
 })
