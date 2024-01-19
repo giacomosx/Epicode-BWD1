@@ -31,6 +31,7 @@ p {
     top: 25%;
     color: white;
     display: flex;
+    flex-direction: column;
     text-align: start;
 }
 
@@ -55,6 +56,10 @@ p {
     margin-top: 80px;
 }
 
+.active {
+    background-color: #D20094;
+    color: #fff;
+}
 
 
 
