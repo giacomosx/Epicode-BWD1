@@ -1,3 +1,7 @@
+@import url("https://necolas.github.io/normalize.css/latest/normalize.css");
+/* normalizing css */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap');
+
 body{
     margin: 0;
     position: relative;
@@ -11,8 +15,26 @@ body{
     color: #fff;
 }
 
-p {
+p, h1, h2 {
     margin: 0;
+}
+
+h1 {
+    font-size: 60px;
+    width: 400px;
+    line-height: 40px;
+    font-weight: 300;
+    margin-bottom: 35px;
+}
+
+h2 {
+    color: #D20094;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+strong {
+    font-weight: 700;
 }
 
 .epicode_logo{
@@ -31,9 +53,9 @@ p {
     width: 200px;
 }
 
-.testo{
+.text-container{
     position: absolute;
-    font-family: Outfit;
+    font-family: 'Outfit', sans-serif;
     font-size: 60px;
     padding-left: 9%;
     top: 25%;
@@ -43,23 +65,23 @@ p {
     text-align: start;
 }
 
-.welcome{
-    color: white;    
-    font-weight: lighter;
-}
 .bold{
-    font-weight: bolder;
+    font-weight: bold;
 }
 
 .instructions{
-    color: #D20094;
     font-size: 16px;
-    font-weight: bolder;
+    font-weight: 300;
 }
 
-.instructions2{
-    font-size: 16px;
+.instructions ul {
+    margin-top: 40px;
 }
+
+.instructions ul li {
+    line-height: 25px;
+}
+
 .check{
     margin-top: 80px;
 }
