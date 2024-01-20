@@ -19,7 +19,7 @@ button {
     cursor: pointer;
 }
 
-header {
+header, footer {
     height: 150px;
     display: flex;
     align-items: center;
@@ -30,9 +30,18 @@ header {
 main {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     width: 80%;
     margin: auto;
+    gap: 40px;
+    height: calc(100vh - 250px);
 }
+
+footer {
+    justify-content: center;
+    height: 100px;
+}
+
 
 p, h1, h2 {
     margin: 0;
@@ -49,7 +58,6 @@ h1 {
 
 
 h2 {
-    color: #D20094;
     font-size: 25px;
     margin-bottom: 10px;
     font-family: 'Outfit', sans-serif;
@@ -57,6 +65,10 @@ h2 {
 
 strong {
     font-weight: 700;
+}
+
+.color-violet{
+    color: #D20094;
 }
 
 .epicode_logo{
@@ -81,12 +93,21 @@ strong {
     border-radius: 50px;
 }
 
-.text-container{
+#text-container{
+    width: 80%;
     font-size: 60px;
     color: white;
     display: flex;
     flex-direction: column;
     text-align: start;
+}
+
+#question {
+    font-size: 35px;
+}
+
+#answersContainer {
+    font-size: 16px;
 }
 
 .bold{
@@ -123,18 +144,6 @@ strong {
     font-size: 32px;
 }
 
-#container{
-    background-color: transparent;
-    width: 200px;
-    height: 50px;
-    border: none;
-    border-radius: 25px;
-    font-size: 16px;
-    font-weight: bolder;
-    color: white;
-    align-items: center;
-}
-
 
 #proceedBtn {
     margin-left: 200px;
@@ -149,7 +158,7 @@ strong {
 
 
 #confirm{
-    position: absolute;
+    align-self: flex-end;
     background-color: transparent;
     width: 200px;
     height: 50px;
@@ -158,7 +167,5 @@ strong {
     font-size: 16px;
     font-weight: bolder;
     color: white;
-    top: 80%;
-    left: 70%;
     box-shadow: 1px 2px 0px 0px white inset;
 }
