@@ -24,14 +24,16 @@ header, footer {
     display: flex;
     align-items: center;
     width: 80%;
+    max-width: 960px;
     margin: auto;
 }
 
 main {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     width: 80%;
+    max-width: 960px;
     margin: auto;
     gap: 40px;
     height: calc(100vh - 250px);
@@ -72,15 +74,14 @@ strong {
 }
 
 .epicode_logo{
-    width: 215px;
-    height: auto;
-    top: 10%;
+    width: 150px;
 }
 
 .timerSection {
     width: 100%;
     display: flex;
     flex-direction: row-reverse;
+    align-self: flex-end;
 }
 
 .timer-container {
@@ -91,23 +92,31 @@ strong {
     align-items: center;
     border: 10px solid #00FFFF;
     border-radius: 50px;
+    flex-direction: column;
+    font-size: 8px;
 }
 
 #text-container{
-    width: 80%;
+    height: 100%;
+}
+
+.question-container {
     font-size: 60px;
     color: white;
     display: flex;
     flex-direction: column;
-    text-align: start;
+    justify-content: space-around;
 }
 
 #question {
-    font-size: 35px;
+    font-size: 32px;
+    align-self: center;
+    text-align: center;
 }
 
 #answersContainer {
     font-size: 16px;
+    align-self: center;
 }
 
 .bold{
@@ -131,8 +140,10 @@ strong {
     line-height: 25px;
 }
 
-.check{
-    margin-top: 80px;
+#check {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .active {
@@ -146,14 +157,16 @@ strong {
 
 
 #proceedBtn {
-    margin-left: 200px;
     font-size: 18px;
     color: black;
     background-color: #00FFFF;
     text-decoration: none;
-    padding: 12px;
     box-shadow: 0px 0px 40px#0ff;
     font-weight: bold;
+    width: 200px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
 }
 
 
@@ -167,5 +180,10 @@ strong {
     font-size: 16px;
     font-weight: bolder;
     color: white;
-    box-shadow: 1px 2px 0px 0px white inset;
+    box-shadow: 0px 1px 1px 1px white inset;
+}
+
+.resultsContainer {
+    font-size: 16px;
+    align-self: flex-start;
 }

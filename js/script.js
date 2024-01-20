@@ -1,22 +1,19 @@
-const question = document.getElementById('question');
-const answersContainer = document.getElementById('answersContainer');
-const confirmBtn = document.getElementById('confirm');
-
 let timing = 90;
 let questionNumber = 0;
 
 let allAnswers = [];
-let userResults = []; // array's objects with all results (checkQuestion). it displays finals results ***
+let userResults = []; // array's objects with all results (checkAnswer). it displays finals results ***
 
 let currentUserAnswer = ''; // global var for tracking the answer every time (takeBtnValue) ***
 let isCorrect = false;
 
 let totalPoints = 0;
 
+const confirmBtn = document.getElementById('confirm');
 
 window.onload = function () {
-  const timer = document.getElementById('timer');
-  timer.innerHTML = timing;
+  document.getElementById('timer').innerHTML = timing;
+  document.getElementById('numberQuestion').innerHTML = 1;
   startTimer();
   startTest();
 }
@@ -28,7 +25,7 @@ function startTimer() {
     timing--;
     timer.innerHTML = timing;
     if (timing === 0) {
-      checkQuestion(currentUserAnswer, userResults); // function that checks if the value entered by the user is correct
+      checkAnswer(currentUserAnswer, userResults); // function that checks if the value entered by the user is correct
       nextQuestion();
     }
   }, 1000)
@@ -36,7 +33,7 @@ function startTimer() {
 
 
 function startTest() {
-  question.innerHTML = questions[questionNumber].question;
+  document.getElementById('question').innerHTML = questions[questionNumber].question;
   getOptionsBtns(allAnswers);
   takeBtnValue();// function that takes the value of the pressed button
 }
@@ -64,7 +61,7 @@ function getOptionsBtns(array) {
 
 
 confirmBtn.addEventListener('click', function () {
-  checkQuestion(currentUserAnswer, userResults); // function that checks if the value entered by the user is correct
+  checkAnswer(currentUserAnswer, userResults); // function that checks if the value entered by the user is correct
   nextQuestion();
 })
 
@@ -76,6 +73,8 @@ function nextQuestion() {
   questionNumber += 1;
   timing = 91;
   allAnswers = [];
+
+  document.getElementById('numberQuestion').innerHTML = questionNumber + 1;
 
   if (questionNumber < questions.length) {
     startTest();
@@ -100,7 +99,7 @@ function takeBtnValue() {
   } 
   
   
-  function checkQuestion(answer, arrayResults) {
+  function checkAnswer(answer, arrayResults) {
     // check the answer given by the user with the correct answer (corretct_answer)
     if (answer === questions[questionNumber].correct_answer) {
       totalPoints += 1;
@@ -116,13 +115,20 @@ function takeBtnValue() {
   
     arrayResults.push(dataQuestion); // records and push in the array's objects all info about the current question
   } 
-  
-  
+
   function showResults() {
     document.querySelector('.timerSection').remove();
-    question.remove();
-    confirmBtn.remove();
-  
+    document.querySelector('footer').remove();
+    document.querySelector('#text-container').remove()
+    document.querySelector('#confirm').remove();
+
+    const main = document.querySelector('main');
+    main.style.height = 'calc(100vh - 150px)';
+    main.style.overflow = 'scroll';
+    
+    const resultsContainer = document.createElement('div');
+    resultsContainer.classList.add('resultsContainer');
+
     const totalPointsContainer = document.createElement('p');
   
     let isPassed = totalPoints > (questions.length / 2) ? true : false;
@@ -141,8 +147,7 @@ function takeBtnValue() {
       resultItem.innerHTML = 'Domanda: ' + result.question + '<br>' + 'Risposta inserita: ' + result.userAnswer + '<br>' + 'Risposta corretta: ' + result.correctAnswer;
       resultsList.append(resultItem);
     })
-
-    console.log(isPassed);
-  
-    document.getElementById('text-container').append(totalPointsContainer, resultsList);
+    
+    resultsContainer.append(totalPointsContainer, resultsList);
+    main.append(resultsContainer);
   } 
