@@ -21,9 +21,12 @@ window.onload = function () {
 
 function startTimer() {
   const timer = document.getElementById('timer');
+  const timerElAnimated = document.getElementById('topCircle');
+
   setInterval(function () {
     timing--;
     timer.innerHTML = timing;
+    timerElAnimated.style.strokeDashoffset = -(90 - timing) / 90;
     if (timing === 0) {
       checkAnswer(currentUserAnswer, userResults); // function that checks if the value entered by the user is correct
       nextQuestion();

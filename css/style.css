@@ -90,10 +90,29 @@ strong {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 10px solid #00FFFF;
-    border-radius: 50px;
     flex-direction: column;
     font-size: 8px;
+}
+
+.timer-container svg {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    fill: none;
+}
+
+#bottomCircle {
+    stroke: #ccc;
+    stroke-opacity: 0.5;
+    stroke-width: 15px;
+}
+
+#topCircle {
+    stroke: #0ff;
+    stroke-width: 15px;
+    transform: rotate(-90deg);
+    stroke-dasharray: 1;
+    transform-origin: center;
 }
 
 #text-container{
@@ -117,7 +136,13 @@ strong {
 #answersContainer {
     font-size: 16px;
     align-self: center;
+    display: flex;
+    gap: 30px;
+    width: 80%;
+    flex-wrap: wrap;
+    justify-content: center;
 }
+
 
 .bold{
     font-weight: bold;
@@ -147,7 +172,8 @@ strong {
 }
 
 .active {
-    background-color: #D20094;
+    background: rgb(210,0,148);
+    background: linear-gradient(74deg, rgba(210,0,148,1) 0%, rgba(144,0,128,1) 42%);
     color: #fff;
 }
 
@@ -156,7 +182,7 @@ strong {
 }
 
 
-#proceedBtn {
+#proceedBtn, #confirm {
     font-size: 18px;
     color: black;
     background-color: #00FFFF;
@@ -167,11 +193,11 @@ strong {
     height: 60px;
     text-align: center;
     line-height: 60px;
+    border-radius: 5px;
 }
 
 
-#confirm{
-    align-self: flex-end;
+.answersBtn{
     background-color: transparent;
     width: 200px;
     height: 50px;
@@ -183,7 +209,15 @@ strong {
     box-shadow: 0px 1px 1px 1px white inset;
 }
 
+
+#confirm {
+    align-self: flex-end;
+    border: none;
+}
+
+
 .resultsContainer {
     font-size: 16px;
     align-self: flex-start;
+    margin-bottom: 50px;
 }
