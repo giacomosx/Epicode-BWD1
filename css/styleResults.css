@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+
+.logo{
+width: 40px;
+height: 40px;
+margin-top: 10px;
+  margin-left: 10px;
+}
+.buttons{
+    padding-left: 1280px;
+  padding-top: 20px;
+}
+
+h5{
+    padding-left: 10px;
+}
+.topBar{
+    margin-bottom: 0;
+    height: 65px;
+  display: flex;
+  background-color: #17192B;
+  border-style: solid;
+  border-color: #242743;
+  border-block-width: 1px;
+  border-left: 0;
+  border-right: 0;
+
+}
+
+body{
+    background-color: #0F101C;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    width: 100%;
+}
+
+.title{
+    margin-left: 120px;
+    margin-top: 70px;
+}
