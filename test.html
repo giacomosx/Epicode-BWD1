@@ -3,29 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Benchmark</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
     <header>
         <img class="epicode_logo" src="/assets/epicode_logo.png">
+        <section class="timerSection">
+            <div class="timer-container">
+                <svg>
+                    <circle id="bottomCircle" cx="50%" cy="50%" r="50" />
+                    <circle id="topCircle" cx="50%" cy="50%" r="50" pathLength="1"/>
+                </svg>
+                <span>SECONDS</span>
+                <span id="timer"></span>
+                <span>REMAINING</span>
+            </div>
+        </section>
     </header>  
    <main>
-    <div class="timerSection">
-        <div class="timer-container">
-            <span id="timer"></span>
-        </div>
-    </div>
-    <div id="text-container">
+    <div id="text-container" class="question-container">
         <p id="question"></p>
     </div>
     <button id="confirm">Proceed</button>
    </main>
    <footer>
-        <p>QUESTION <span id="numberQuestion">1</span><span class="color-violet"> / 10</span></p>
+        <p>QUESTION <span id="numberQuestion"></span><span class="color-violet"> / 10</span></p>
    </footer>
     <script src="./js/dataset.js"></script>
-    <script src="./js/functions.js"></script>
     <script src="./js/script.js"></script>
 </body>
 </html>
