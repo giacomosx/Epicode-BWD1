@@ -138,7 +138,7 @@ strong {
     align-self: center;
     display: flex;
     gap: 30px;
-    width: 80%;
+    width: 60%;
     flex-wrap: wrap;
     justify-content: center;
 }
