@@ -1,28 +1,33 @@
 let timing = 90;
 let questionNumber = 0;
 
+// object with all totals. It displays correct, wrong and empty answers ***
+let totals = {
+  correct : 0,
+  wrong : 0,
+  empty : 0
+}
+
 let allAnswers = [];
-let userResults = []; // array's objects with all results (checkAnswer). it displays finals results ***
+let userResults = []; // array's objects with all results (checkAnswer). it displays finals results details ***
 
 let currentUserAnswer = ''; // global var for tracking the answer every time (takeBtnValue) ***
-let isCorrect = false;
+let isCorrect;
 
-let totalPoints = 0;
 
 const confirmBtn = document.getElementById('confirm');
 
 window.onload = function () {
   document.getElementById('timer').innerHTML = timing;
   document.getElementById('numberQuestion').innerHTML = 1;
-  startTimer();
+  countDown();
   startTest();
 }
 
 
-function startTimer() {
+let countDown = function startTimer() {
   const timer = document.getElementById('timer');
   const timerElAnimated = document.getElementById('topCircle');
-
   setInterval(function () {
     timing--;
     timer.innerHTML = timing;
@@ -88,73 +93,103 @@ function nextQuestion() {
 
 
 function takeBtnValue() {
-    const answersBtn = document.querySelectorAll('.answersBtn');
-  
-    answersBtn.forEach(button => {
-      button.addEventListener('click', function () {
-        answersBtn.forEach(button => {
-          button.classList.remove('active');
-        })
-        this.classList.add('active');
-        currentUserAnswer = this.innerHTML; // it takes the value of the button
+  const answersBtn = document.querySelectorAll('.answersBtn');
+
+  answersBtn.forEach(button => {
+    button.addEventListener('click', function () {
+      answersBtn.forEach(button => {
+        button.classList.remove('active');
       })
+      this.classList.add('active');
+      currentUserAnswer = this.innerHTML; // it takes the value of the button
+      console.log(currentUserAnswer);
     })
-  } 
-  
-  
-  function checkAnswer(answer, arrayResults) {
-    // check the answer given by the user with the correct answer (corretct_answer)
-    if (answer === questions[questionNumber].correct_answer) {
-      totalPoints += 1;
-      isCorrect = true;
-    }
-    
-    let dataQuestion = {
-      numberQuestion: questionNumber,
-      category: questions[questionNumber].category,
-      question: questions[questionNumber].question,
-      isCorrect: isCorrect
-    }
+  })
+}
 
-    console.log(dataQuestion);
-  
-    arrayResults.push(dataQuestion); // records and push in the array's objects all info about the current question
-  } 
 
-  function showResults() {
-    document.querySelector('.timerSection').remove();
-    document.querySelector('footer').remove();
-    document.querySelector('#text-container').remove()
-    document.querySelector('#confirm').remove();
+function checkAnswer(answer, arrayResults) {
+  // check the answer given by the user with the correct answer (corretct_answer)
+  if (answer === questions[questionNumber].correct_answer) {
+    isCorrect = true;
+    totals.correct += 1;
+  } else if (questions[questionNumber].incorrect_answers.includes(answer) ){
+    isCorrect = false;
+    totals.wrong += 1;
+  } else {
+    isCorrect = false;
+    totals.empty += 1;
+  }
 
-    const main = document.querySelector('main');
-    main.style.height = 'calc(100vh - 150px)';
-    main.style.overflow = 'scroll';
-    
-    const resultsContainer = document.createElement('div');
-    resultsContainer.classList.add('resultsContainer');
+  let dataQuestion = {
+    numberQuestion: questionNumber,
+    category: questions[questionNumber].category,
+    question: questions[questionNumber].question,
+    isCorrect: isCorrect,
+    userAnswer: currentUserAnswer
+  }
 
-    const totalPointsContainer = document.createElement('p');
+  console.log(dataQuestion);
+  console.log(totals);
+
+  arrayResults.push(dataQuestion); // records and push in the array's objects all info about the current question
+}
+
+
+function showResults() {
+  document.querySelector('.timerSection').remove();
+  document.querySelector('footer').remove();
+  document.querySelector('#text-container').remove()
+  document.querySelector('#confirm').remove();
+
+  const main = document.querySelector('main');
+  main.style.height = 'calc(100vh - 150px)';
+  main.style.overflow = 'scroll';
+
+  const resultsContainer = document.createElement('div');
+  resultsContainer.classList.add('resultsContainer');
   
-    let isPassed = totalPoints > (questions.length / 2) ? true : false;
+  const responseContainer = document.createElement('div');
+  responseContainer.id = 'responseContainer';
   
-    if (isPassed) {
-      totalPointsContainer.innerHTML = 'Hai totalizzato ' + totalPoints + ' punti. Complimenti esame superato!';
+  let percentage = (totals.correct / questions.length)*100;
+
+  if (percentage > 50) {
+    responseContainer.innerHTML = `Il ${percentage}% delle tue risposte è corretto. Complimenti, hai superato l'esame!`;
+  } else {
+    responseContainer.innerHTML = `Solo il ${percentage}% delle tue risposte è corretto. Mi dispiace ma non hai superato l'esame!`;
+  }
+
+  console.log(percentage);
+
+  const results = document.createElement('ul');
+  results.classList.add('results');
+
+  results.innerHTML = `<li>Correct<span id="correctAnswers">${totals.correct}</span></li>
+                       <li>Wrong<span id="wrongAnswers">${totals.wrong}</span></li>
+                       <li>Empty<span id="emptyAnswers">${totals.empty}</span></li>
+                       <li>Total<span id="totalAnswers">${(totals.correct + totals.wrong)}</span></li>`
+
+  const questionList = document.createElement('div');
+  questionList.classList.add('questionList');
+
+  const resultsList = document.createElement('ul');
+
+  userResults.forEach(result => {
+    const resultItem = document.createElement('li');
+
+    if (result.isCorrect) {
+      resultItem.innerHTML = `<span class="nQuestion">(${result.numberQuestion + 1})</span><span class="checkMark_green"><ion-icon name="checkmark-outline"></ion-icon></span><div class="question_written"><span class="category">${result.category}</span>${result.question}</div>`;
     } else {
-      totalPointsContainer.innerHTML = 'Hai totalizzato ' + totalPoints + " punti. Mi dispiace non hai superato l'esame!";
+      resultItem.innerHTML = `<span class="nQuestion">(${result.numberQuestion + 1})</span><span class="checkMark_red"><ion-icon name="close-outline"></ion-icon></span><div class="question_written"><span class="category">${result.category}</span>${result.question}</div>`;
     }
-  
-    const resultsList = document.createElement('ul');
-    resultsList.classList.add('resultsList');
-  
-    userResults.forEach(result => {
-      const resultItem = document.createElement('li');
-      // resultItem.innerHTML = 'Domanda: ' + result.question + '<br>' + 'Risposta inserita: ' + result.userAnswer + '<br>' + 'Risposta corretta: ' + result.correctAnswer;
-      resultItem.innerHTML = '<li><span class="nQuestion">(' + (result.numberQuestion + 1) + ')</span><span class="checkQuestion"><ion-icon name="checkmark-outline"></ion-icon></span><div>' + result.category + ' ' + result.question + '</div></li>';
-      
-      resultsList.append(resultItem);
-    })
-    
-    resultsContainer.append(totalPointsContainer, resultsList);
-    main.append(resultsContainer);
-  } 
+
+    console.log(result.isCorrect);
+
+    resultsList.append(resultItem);
+  })
+
+  resultsContainer.append(responseContainer, results, questionList);
+  questionList.append(resultsList);
+  main.append(resultsContainer);
+} 
