@@ -110,11 +110,13 @@ function takeBtnValue() {
     }
     
     let dataQuestion = {
+      numberQuestion: questionNumber,
+      category: questions[questionNumber].category,
       question: questions[questionNumber].question,
-      userAnswer: answer,
-      correctAnswer: questions[questionNumber].correct_answer,
       isCorrect: isCorrect
     }
+
+    console.log(dataQuestion);
   
     arrayResults.push(dataQuestion); // records and push in the array's objects all info about the current question
   } 
@@ -147,7 +149,9 @@ function takeBtnValue() {
   
     userResults.forEach(result => {
       const resultItem = document.createElement('li');
-      resultItem.innerHTML = 'Domanda: ' + result.question + '<br>' + 'Risposta inserita: ' + result.userAnswer + '<br>' + 'Risposta corretta: ' + result.correctAnswer;
+      // resultItem.innerHTML = 'Domanda: ' + result.question + '<br>' + 'Risposta inserita: ' + result.userAnswer + '<br>' + 'Risposta corretta: ' + result.correctAnswer;
+      resultItem.innerHTML = '<li><span class="nQuestion">(' + (result.numberQuestion + 1) + ')</span><span class="checkQuestion"><ion-icon name="checkmark-outline"></ion-icon></span><div>' + result.category + ' ' + result.question + '</div></li>';
+      
       resultsList.append(resultItem);
     })
     

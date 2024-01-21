@@ -187,14 +187,21 @@ strong {
     color: black;
     background-color: #00FFFF;
     text-decoration: none;
-    box-shadow: 0px 0px 40px#0ff;
     font-weight: bold;
     width: 200px;
     height: 60px;
     text-align: center;
     line-height: 60px;
     border-radius: 5px;
+    transition: all 500ms;
 }
+
+
+#proceedBtn:hover, #confirm:hover {
+    box-shadow: 0px 0px 40px#0ff;
+}
+
+
 
 
 .answersBtn{
