@@ -426,13 +426,3 @@ circle {
     }
 
   }
-  
-  /* dispositivi tablet  */
-  @media only screen and (min-width: 768px) and (max-width: 1023px) {
-   /* regole per il tablet qui */
-  }
-  
-  /* Desktop */
-  @media only screen and (min-width: 1024px) {
-     /* regole per il desktop qui */
-  }
