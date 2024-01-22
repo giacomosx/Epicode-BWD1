@@ -60,10 +60,28 @@ function getOptionsBtns(array) {
   document.getElementById('text-container').append(answersContainer);
 
   array.forEach(answer => {
-    const button = document.createElement('button');
-    button.classList.add('answersBtn');
-    button.innerHTML = answer;
-    answersContainer.append(button);
+    if (questions[questionNumber].type === 'boolean') {
+      const inputContainer = document.createElement('div');
+      inputContainer.classList.add('inputContainer');
+
+      const radioButton = document.createElement('input');
+      radioButton.type = 'radio';
+      radioButton.id = answer;
+      radioButton.value = answer;
+      radioButton.name = 'radioBtn';
+      
+      const label = document.createElement('label');
+      label.setAttribute('for', answer);
+      label.innerHTML = answer;
+
+      inputContainer.append(radioButton, label);
+      answersContainer.append(inputContainer);  
+    } else {
+      const button = document.createElement('button');
+      button.classList.add('answersBtn');
+      button.innerHTML = answer;
+      answersContainer.append(button);
+    }
   })
 }
 
@@ -87,24 +105,39 @@ function nextQuestion() {
   if (questionNumber < questions.length) {
     startTest();
   } else {
+    clearInterval(countDown);
     showResults(); // function that shows final results
   }
 }
 
 
 function takeBtnValue() {
-  const answersBtn = document.querySelectorAll('.answersBtn');
+  
+  if (questions[questionNumber].type === 'boolean') {
+    const radioButton = document.querySelectorAll('input');
 
-  answersBtn.forEach(button => {
-    button.addEventListener('click', function () {
-      answersBtn.forEach(button => {
-        button.classList.remove('active');
+    radioButton.forEach(input => {
+      input.addEventListener('click', function () {
+        currentUserAnswer = this.value; // it takes the value of the radio button
+        console.log(currentUserAnswer);
       })
-      this.classList.add('active');
-      currentUserAnswer = this.innerHTML; // it takes the value of the button
-      console.log(currentUserAnswer);
     })
-  })
+
+  } else {
+    const answersBtn = document.querySelectorAll('.answersBtn');
+
+    answersBtn.forEach(button => {
+      button.addEventListener('click', function () {
+        answersBtn.forEach(button => {
+          button.classList.remove('active');
+        })
+        this.classList.add('active');
+        currentUserAnswer = this.innerHTML; // it takes the value of the button
+        console.log(currentUserAnswer);
+      })
+    })
+  }
+  
 }
 
 
@@ -133,6 +166,9 @@ function checkAnswer(answer, arrayResults) {
   console.log(totals);
 
   arrayResults.push(dataQuestion); // records and push in the array's objects all info about the current question
+
+  currentUserAnswer = null;
+  console.log(currentUserAnswer);
 }
 
 
@@ -155,9 +191,9 @@ function showResults() {
   let percentage = (totals.correct / questions.length)*100;
 
   if (percentage > 50) {
-    responseContainer.innerHTML = `Il ${percentage}% delle tue risposte è corretto. Complimenti, hai superato l'esame!`;
+    responseContainer.innerHTML = `${percentage}% risposte corrette. Complimenti, hai superato l'esame!`;
   } else {
-    responseContainer.innerHTML = `Solo il ${percentage}% delle tue risposte è corretto. Mi dispiace ma non hai superato l'esame!`;
+    responseContainer.innerHTML = `${percentage}% risposte corrette. Mi dispiace ma non hai superato l'esame!`;
   }
 
   console.log(percentage);
