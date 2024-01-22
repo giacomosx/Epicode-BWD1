@@ -32,9 +32,11 @@ let countDown = function startTimer() {
     timing--;
     timer.innerHTML = timing;
     timerElAnimated.style.strokeDashoffset = -(90 - timing) / 90;
-    if (timing === 0) {
+    if (timing === 0 && questionNumber !== questions.length) {
       checkAnswer(currentUserAnswer, userResults); // function that checks if the value entered by the user is correct
       nextQuestion();
+    } else {
+      clearInterval(countDown);
     }
   }, 1000)
 }
@@ -80,6 +82,7 @@ function getOptionsBtns(array) {
       const button = document.createElement('button');
       button.classList.add('answersBtn');
       button.innerHTML = answer;
+
       answersContainer.append(button);
     }
   })
@@ -112,14 +115,12 @@ function nextQuestion() {
 
 
 function takeBtnValue() {
-  
   if (questions[questionNumber].type === 'boolean') {
     const radioButton = document.querySelectorAll('input');
 
     radioButton.forEach(input => {
       input.addEventListener('click', function () {
         currentUserAnswer = this.value; // it takes the value of the radio button
-        console.log(currentUserAnswer);
       })
     })
 
@@ -133,7 +134,6 @@ function takeBtnValue() {
         })
         this.classList.add('active');
         currentUserAnswer = this.innerHTML; // it takes the value of the button
-        console.log(currentUserAnswer);
       })
     })
   }
@@ -162,13 +162,9 @@ function checkAnswer(answer, arrayResults) {
     userAnswer: currentUserAnswer
   }
 
-  console.log(dataQuestion);
-  console.log(totals);
-
   arrayResults.push(dataQuestion); // records and push in the array's objects all info about the current question
 
   currentUserAnswer = null;
-  console.log(currentUserAnswer);
 }
 
 
@@ -177,27 +173,35 @@ function showResults() {
   document.querySelector('footer').remove();
   document.querySelector('#text-container').remove()
   document.querySelector('#confirm').remove();
+  
+  let percentage = (totals.correct / questions.length);
+
+  document.body.style.height = '100%';
 
   const main = document.querySelector('main');
-  main.style.height = 'calc(100vh - 150px)';
-  main.style.overflow = 'scroll';
+  main.style.height = '100%';
 
   const resultsContainer = document.createElement('div');
   resultsContainer.classList.add('resultsContainer');
   
-  const responseContainer = document.createElement('div');
-  responseContainer.id = 'responseContainer';
+  const chartContainer = document.createElement('div');
+  chartContainer.id = 'chartContainer';
   
-  let percentage = (totals.correct / questions.length)*100;
+  chartContainer.innerHTML = `<svg>
+                                <circle id="correctDataCircle" cx="50%" cy="50%" r="90" />
+                                <circle id="wrongDataCircle" cx="50%" cy="50%" r="90" pathLength="1"/>
+                              </svg>`;
 
-  if (percentage > 50) {
-    responseContainer.innerHTML = `${percentage}% risposte corrette. Complimenti, hai superato l'esame!`;
+  const response = document.createElement('div');
+  response.id = 'responseContainer';
+
+  if (percentage > 0.5) {
+      response.innerHTML = `<span>Passed!</span><span id="percentageDisplayed">${percentage * 100}%</span><span>${totals.correct}/10 questions</span>`
   } else {
-    responseContainer.innerHTML = `${percentage}% risposte corrette. Mi dispiace ma non hai superato l'esame!`;
+    response.innerHTML = `<span>Failed!</span><span id="percentageDisplayed">${percentage * 100} %</span><span>${totals.correct}/10 questions</span>`
   }
-
-  console.log(percentage);
-
+  
+                    
   const results = document.createElement('ul');
   results.classList.add('results');
 
@@ -220,12 +224,16 @@ function showResults() {
       resultItem.innerHTML = `<span class="nQuestion">(${result.numberQuestion + 1})</span><span class="checkMark_red"><ion-icon name="close-outline"></ion-icon></span><div class="question_written"><span class="category">${result.category}</span>${result.question}</div>`;
     }
 
-    console.log(result.isCorrect);
-
     resultsList.append(resultItem);
   })
 
-  resultsContainer.append(responseContainer, results, questionList);
+  chartContainer.append(response);
+  resultsContainer.append(chartContainer, results, questionList);
   questionList.append(resultsList);
   main.append(resultsContainer);
+
+  setInterval(function () {
+    const wrongDataCircle = document.getElementById('wrongDataCircle');
+    wrongDataCircle.style.strokeDashoffset= `-${percentage}`;
+  }, 200)
 } 
